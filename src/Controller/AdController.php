@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Session\SSessionInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response\Symfony\Flex\Response;
 
@@ -50,6 +50,8 @@ class AdController extends AbstractController
                 $image->setAd($ad);
                 $manager->persist($image);
             }
+
+            $ad->setAuthor($this->getUser());
 
             $manager->persist($ad);
             $manager->flush($ad);
