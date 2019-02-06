@@ -7,6 +7,11 @@ div.ad-title{
     background-size: cover;
     background-position: center center;
 }
+div.ad-title .btn{
+    margin-top: 2em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
 
 div.ad-title h1, div.ad-title p, div.carousel-caption h5, div.carousel-caption p {
     color: white;
@@ -29,4 +34,13 @@ div.ad-title h1, div.ad-title p, div.carousel-caption h5, div.carousel-caption p
 }
 .datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
     color: firebrick !important;
+}
+span.rating i {
+    color: goldenrod;
+}
+.alert a{
+    text-decoration: none;
+}
+.alert .btn{
+    color: white;
 }
