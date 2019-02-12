@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AnnonceType;
+use App\Service\PaginationService;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -13,12 +14,44 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="admin_ads_index")
+     * {page}
+     * {page <>} = requirements
+     * {page <\d+>} = requirements numeric only et nombreux ou pas ...
+     * {page <\d+>?} = optionnel
+     * {page <\d+>?1} = optionnel et 1 par defaut
+     * @Route("/admin/ads/{page<\d+>?1}", name="admin_ads_index")
      */
-    public function index(AdRepository  $repo)
+    public function index(AdRepository $repo, $page, PaginationService $pagination)
     {
+        // Methode find : permet de retrouver un enregistrement par son identifiant
+        // $ad = $repo->find(304);
+
+        // $ad = $repo->findBy([
+        //     'title' => 'Annonce corrigée !',
+        //     'id' => 302
+        // ]);
+
+        // Prend 4 params: 1 Criteres, 2 Orders, 3 Limite, 4 Offset(début)
+        // $ads = $repo->findBy([], [], 5, 0);
+
+
+        // $limit = 10;
+
+        // Pagination ...
+        // $start = $page * $limit - $limit;
+        // 1 * 10 = 10 - 10 = 0
+        // 2 * 10 = 20 - 10 = 10
+
+        // $total = count($repo->findAll());
+
+        // ceil arrondi au dessus 3.4 => 4
+        // $pages = ceil($total / $limit);
+
+        $pagination->setEntityClass(Ad::class)
+                   ->setPage($page);
+
         return $this->render('admin/ad/index.html.twig', [
-            'ads' => $repo->findAll()
+            'pagination' => $pagination
         ]);
     }
 
